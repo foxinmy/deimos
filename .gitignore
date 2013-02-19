@@ -1,0 +1,17 @@
+*~
+
+# eclipse ignore
+*.settings/*
+/.project
+/.classpath
+/.tomcatplugin
+
+# maven ignore
+target/*
+src/main/webapp/WEB-INF/classes/*
+src/test/*
+
+# other ignore
+*.log
+*.tmp
+Thumbs.db

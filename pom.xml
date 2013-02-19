@@ -70,7 +70,7 @@
 				<artifactId>tomcat6-maven-plugin</artifactId>
 				<version>2.0</version>
 				<configuration>
-					<url>http://199.193.255.33:8080/manager/html</url>
+					<url>http://199.193.255.33:8080/manager</url>
 					<warSourceDirectory>src/main/webapp</warSourceDirectory>
 					<warFile>${project.build.directory}/${project.build.finalName}.${project.packaging}</warFile>
 					<port>8090</port>
