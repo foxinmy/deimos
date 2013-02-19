@@ -1,0 +1,13 @@
+﻿<!-- 头部 -->
+<#if (loginId)??>
+	<div id="db-nav">
+		
+	</div>
+<#else>
+	<div id="header">
+		<div id="loginbar">
+			<a id="login-button" class="button" href="${base}/login.action"><span>登录</span></a>
+			<a id="register-button" class="button" href="${base}/register.action"><span>注册</span></a>
+		</div>
+	</div>
+</#if>
