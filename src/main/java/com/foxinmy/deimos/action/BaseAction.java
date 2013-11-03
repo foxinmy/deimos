@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.context.ServletContextAware;
 
+import com.foxinmy.deimos.captcha.CaptchaEngine;
 import com.foxinmy.deimos.filter.ResponseInScopeFilter;
 import com.foxinmy.jycore.util.json.JsonUtil;
 
@@ -22,7 +22,7 @@ import com.foxinmy.jycore.util.json.JsonUtil;
  * @description 提供对request等对象的常用操作方法
  * @author jy.hu , 2013-1-29
  */
-public class BaseAction implements ServletContextAware {
+public class BaseAction {
 
 	private static final String HEADER_ENCODING = "UTF-8";
 	private static final boolean HEADER_NO_CACHE = true;
@@ -43,14 +43,14 @@ public class BaseAction implements ServletContextAware {
 	@Autowired
 	private HttpServletRequest request;
 	@Autowired
-	ResponseInScopeFilter responseInScopeFilter;
-
+	private ResponseInScopeFilter responseInScopeFilter;
+	@Autowired
 	private ServletContext servletContext;
 
 	protected HttpServletRequest getRequest() {
 		return request;
 	}
-
+	
 	// 获取Response
 	protected HttpServletResponse getResponse() {
 		return responseInScopeFilter.getHttpServletResponse();
@@ -59,11 +59,6 @@ public class BaseAction implements ServletContextAware {
 	// 获取ServletContext
 	protected ServletContext getServletContext() {
 		return servletContext;
-	}
-
-	@Override
-	public void setServletContext(ServletContext servletContext) {
-		this.servletContext = servletContext;
 	}
 
 	// 获取Attribute
@@ -130,6 +125,7 @@ public class BaseAction implements ServletContextAware {
 	protected void setCookie(String name, String value) {
 		Cookie cookie = new Cookie(name, value);
 		cookie.setPath(getRequest().getContextPath() + "/");
+		System.out.println(getResponse());
 		getResponse().addCookie(cookie);
 	}
 
@@ -252,6 +248,12 @@ public class BaseAction implements ServletContextAware {
 			response.setHeader("Cache-Control", "no-cache, no-store, max-age=0");
 		}
 		return response;
+	}
+	
+	protected String registerView(){
+		setAttribute("captchaName", CaptchaEngine.CAPTCHA_PARAMETER_NAME);
+		setAttribute("captchaUrl", CaptchaEngine.CAPTCHA_IMAGE_URL);
+		return "/register";
 	}
 
 }

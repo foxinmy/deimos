@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+	<!--
+		<context:property-placeholder location="classpath:/email.properties"/>
+		-->
+	<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="${email.host}"/>
+		<property name="port" value="${email.port}"/>
+		<property name="username" value="${email.username}"/>
+		<property name="password" value="${email.password}"/>
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">${email.mail.smtp.auth}</prop>
+				<prop key="mail.smtp.timeout">${email.mail.smtp.timeout}</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="captchaService" class="com.octo.captcha.service.image.DefaultManageableImageCaptchaService">
+		<property name="captchaEngine">
+			<bean class="com.foxinmy.deimos.captcha.CaptchaEngine" />
+		</property>
+		<property name="minGuarantedStorageDelayInSeconds" value="600" />
+	</bean>
+	<bean id="springUtil" class="com.foxinmy.deimos.util.SpringUtil" lazy-init="false" />
+	<bean id="httpServletResponse" class="com.foxinmy.deimos.bean.HttpServletResponseFactoryBean" scope="request"/>
+	<bean id="responseInScopeFilter" class="com.foxinmy.deimos.filter.ResponseInScopeFilter"/>
+	<bean id="cacheManager" class="com.opensymphony.oscache.general.GeneralCacheAdministrator"/>
+	<!-- 执行任务 -->
+	<bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<property name="corePoolSize" value="5" />
+		<property name="maxPoolSize" value="50" />
+		<property name="queueCapacity" value="1000" />
+		<property name="keepAliveSeconds" value="60" />
+	</bean>
+	<!-- 计划任务 -->
+	<bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="taskExecutor" ref="taskExecutor" />
+	</bean>
+	<bean id="freeMarkerConfigurer"
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<property name="templateLoaderPath" value="/WEB-INF/template" />
+	</bean>
+	<bean class="com.foxinmy.deimos.listener.StandardMongoListener" />
+	<context:component-scan base-package="com.foxinmy.deimos.dao.impl"/>
+</beans>

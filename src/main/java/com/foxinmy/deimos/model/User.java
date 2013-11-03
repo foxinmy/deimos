@@ -2,53 +2,60 @@ package com.foxinmy.deimos.model;
 
 import java.util.Date;
 
+import javax.persistence.Transient;
+
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.foxinmy.deimos.bean.UserConstantBean;
 
 /**
  * 会员
+ * 
  * @author liubin
- *
+ * 
  */
 @Document
 public class User extends BaseModel<String> {
-	
-	private static final long serialVersionUID = 5924548825162402298L;
-	
-	public static final String UESR_ID_SESSION_NAME = "loginId";
-	public static final String USER_NAME_COOKIE_NAME="loginUsername";
 
-	@Indexed(unique=true)
-	//邮箱
+	@Transient
+	private static final long serialVersionUID = 5924548825162402298L;
+	@Transient
+	public static final String UESR_ID_SESSION_NAME = "loginId";
+	@Transient
+	public static final String USER_NAME_COOKIE_NAME = "loginName";
+
+	@Indexed(unique = true)
+	// 邮箱
 	private String email;
-	
-	//密码
+
+	// 密码
 	private String password;
-	
-	//性别
-	private Integer gender;
-	
-	//昵称
+
+	// 性别
+	private char gender;
+
+	// 昵称
 	private String nickName;
-	
-	//真实姓名
+
+	// 真实姓名
 	private String realName;
-	
-	//省份
-	private String province;
-	
-	//城市
+
+	// 城市
 	private String city;
-	
-	//生日
+
+	// 生日
 	private Date birthday;
-	
-	//注册日期
+
+	// 注册日期
 	private Date registerDate;
-	
-	//个人签名
+
+	// 个人签名
 	private String signature;
+
+	// 账户状态
+	private int status;
 
 	public String getEmail() {
 		return email;
@@ -66,11 +73,11 @@ public class User extends BaseModel<String> {
 		this.password = password;
 	}
 
-	public Integer getGender() {
+	public char getGender() {
 		return gender;
 	}
 
-	public void setGender(Integer gender) {
+	public void setGender(char gender) {
 		this.gender = gender;
 	}
 
@@ -88,14 +95,6 @@ public class User extends BaseModel<String> {
 
 	public void setRealName(String realName) {
 		this.realName = realName;
-	}
-
-	public String getProvince() {
-		return province;
-	}
-
-	public void setProvince(String province) {
-		this.province = province;
 	}
 
 	public String getCity() {
@@ -129,5 +128,34 @@ public class User extends BaseModel<String> {
 	public void setSignature(String signature) {
 		this.signature = signature;
 	}
-	
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	@Override
+	public void onSave() {
+		Date date = new Date();
+		setGender(UserConstantBean.UserGender.GENDER_FEMALE.getValue()
+				.charValue());
+		setStatus(UserConstantBean.UserStatus.STATUS_DISABLED.getValue()
+				.intValue());
+		setCreateDate(date);
+		setModifyDate(date);
+		setPassword(DigestUtils.md5Hex(getPassword()));
+	}
+
+	@Override
+	public void onUpdate() {
+		setModifyDate(new Date());
+	}
+
+	@Override
+	public void onRemove() {
+		
+	}
 }

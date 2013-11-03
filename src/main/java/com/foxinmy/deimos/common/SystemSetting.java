@@ -10,7 +10,8 @@ public class SystemSetting {
 	public enum Operator {
 		add, subtract, multiply, divide
 	}
-
+	
+	private String domain;//域名
 	private String systemName;// 系统名称
 	private String systemVersion;// 系统版本
 	private String systemDescription;// 系统描述
@@ -33,8 +34,16 @@ public class SystemSetting {
 	private Integer smtpPort;// SMTP服务器端口
 	private String smtpUsername;// SMTP用户名
 	private String smtpPassword;// SMTP密码
-	private Integer buildHtmlDelayTime;// 生成HTML任务延时(单位: 秒)
 	private Boolean isGzipEnabled;// 是否开启GZIP功能
+	private Integer buildHtmlDelayTime;// 生成HTML任务延时(单位: 秒)
+
+	public String getDomain() {
+		return domain;
+	}
+
+	public void setDomain(String domain) {
+		this.domain = domain;
+	}
 
 	public String getSystemName() {
 		return systemName;
@@ -212,20 +221,20 @@ public class SystemSetting {
 		this.smtpPassword = smtpPassword;
 	}
 
-	public Integer getBuildHtmlDelayTime() {
-		return buildHtmlDelayTime;
-	}
-
-	public void setBuildHtmlDelayTime(Integer buildHtmlDelayTime) {
-		this.buildHtmlDelayTime = buildHtmlDelayTime;
-	}
-
 	public Boolean getIsGzipEnabled() {
 		return isGzipEnabled;
 	}
 
 	public void setIsGzipEnabled(Boolean isGzipEnabled) {
 		this.isGzipEnabled = isGzipEnabled;
+	}
+
+	public Integer getBuildHtmlDelayTime() {
+		return buildHtmlDelayTime;
+	}
+
+	public void setBuildHtmlDelayTime(Integer buildHtmlDelayTime) {
+		this.buildHtmlDelayTime = buildHtmlDelayTime;
 	}
 
 }

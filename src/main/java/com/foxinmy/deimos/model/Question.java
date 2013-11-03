@@ -2,44 +2,35 @@ package com.foxinmy.deimos.model;
 
 import java.util.List;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * 问题
+ * 
  * @author liubin
- *
+ * 
  */
 @Document
-public class Question {
-	
-	@Id
-	private String id;
-	
-	//类型
+public class Question extends BaseModel<String> {
+
+	private static final long serialVersionUID = -7037914885139106929L;
+
+	// 类型
 	private Integer type;
-	
-	//选项
+
+	// 选项
 	private List<String> options;
-	
-	//正确的选项的序号,从1开始
+
+	// 正确的选项的序号,从1开始
 	private Integer rightIndex;
-	
-	//序数,从0开始
+
+	// 序数,从0开始
 	private Integer ordinal;
-	
-	//教材
+
+	// 教材
 	@DBRef
 	private Word word;
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
 
 	public Integer getType() {
 		return type;

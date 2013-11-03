@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+	<title>deimos - 首页</title>
 	<link rel="stylesheet" href="${base}/js/slider/default.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="${base}/js/slider/nivo-slider.css" type="text/css" media="screen" />
     <script type="text/javascript" src="${base}/js/slider/jquery.nivo.slider.pack.js"></script>
@@ -9,6 +10,7 @@
         $('#body-slider').nivoSlider();
     });
     </script>
+    
 </head>
 <body>
 	<div id="content" class="slider-wrapper theme-default">

@@ -20,7 +20,7 @@ import com.opensymphony.oscache.general.GeneralCacheAdministrator;
 
 public class SettingUtil {
 
-	private static final String DEIMOS_CONFIG_XML_FILE_NAME = "deimos.config.xml";// 系统配置文件名称
+	private static final String DEIMOS_CONFIG_XML_FILE_NAME = "deimos.xml";// 系统配置文件名称
 	private static final String CACHE_MANAGER_BEAN_NAME = "cacheManager";// cacheManager
 																			// Bean名称
 	private static final String SETTING_CACHE_KEY = "DEIMOS_SETTING";// Setting缓存Key
@@ -38,10 +38,12 @@ public class SettingUtil {
 	 */
 	public static SystemSetting readSetting() throws URISyntaxException,
 			DocumentException, IOException {
-		File intcosoftXmlFile = new ClassPathResource(
+		File deimosXmlFile = new ClassPathResource(
 				DEIMOS_CONFIG_XML_FILE_NAME).getFile();
 		SAXReader saxReader = new SAXReader();
-		Document document = saxReader.read(intcosoftXmlFile);
+		Document document = saxReader.read(deimosXmlFile);
+		Node domainNode = document
+				.selectSingleNode("/deimos/setting/domain");
 		Node systemNameNode = document
 				.selectSingleNode("/deimos/setting/systemName");
 		Node systemVersionNode = document
@@ -88,6 +90,7 @@ public class SettingUtil {
 				.selectSingleNode("/deimos/setting/buildHtmlDelayTime");
 
 		SystemSetting setting = new SystemSetting();
+		setting.setDomain(domainNode.getText());
 		setting.setSystemName(systemNameNode.getText());
 		setting.setSystemVersion(systemVersionNode.getText());
 		setting.setSystemDescription(systemDescriptionNode.getText());
@@ -112,9 +115,8 @@ public class SettingUtil {
 		setting.setSmtpPort(Integer.valueOf(smtpPortNode.getText()));
 		setting.setSmtpUsername(smtpUsernameNode.getText());
 		setting.setSmtpPassword(smtpPasswordNode.getText());
-		setting.setBuildHtmlDelayTime(Integer.valueOf(buildHtmlDelayTimeNode
-				.getText()));
 		setting.setIsGzipEnabled(Boolean.valueOf(isGzipEnabledNode.getText()));
+		setting.setBuildHtmlDelayTime(Integer.valueOf(buildHtmlDelayTimeNode.getText()));
 		return setting;
 	}
 
@@ -154,13 +156,13 @@ public class SettingUtil {
 	 * @return Setting
 	 */
 	public static void writeSetting(SystemSetting setting) {
-		File intcosoftXmlFile = null;
+		File deimosXmlFile = null;
 		Document document = null;
 		try {
-			intcosoftXmlFile = new ClassPathResource(
+			deimosXmlFile = new ClassPathResource(
 					DEIMOS_CONFIG_XML_FILE_NAME).getFile();
 			SAXReader saxReader = new SAXReader();
-			document = saxReader.read(intcosoftXmlFile);
+			document = saxReader.read(deimosXmlFile);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -233,12 +235,11 @@ public class SettingUtil {
 		if (smtpPasswordNode == null) {
 			smtpPasswordNode = settingElement.addElement("smtpPassword");
 		}
-		if (buildHtmlDelayTimeNode == null) {
-			buildHtmlDelayTimeNode = settingElement
-					.addElement("buildHtmlDelayTime");
-		}
 		if (isGzipEnabledNode == null) {
 			isGzipEnabledNode = settingElement.addElement("isGzipEnabled");
+		}
+		if (buildHtmlDelayTimeNode == null) {
+			buildHtmlDelayTimeNode = settingElement.addElement("buildHtmlDelayTime");
 		}
 
 		hotSearchNode.setText(setting.getHotSearch());
@@ -254,9 +255,8 @@ public class SettingUtil {
 		smtpPortNode.setText(String.valueOf(setting.getSmtpPort()));
 		smtpUsernameNode.setText(setting.getSmtpUsername());
 		smtpPasswordNode.setText(setting.getSmtpPassword());
-		buildHtmlDelayTimeNode.setText(setting.getBuildHtmlDelayTime()
-				.toString());
 		isGzipEnabledNode.setText(setting.getIsGzipEnabled().toString());
+		buildHtmlDelayTimeNode.setText(setting.getBuildHtmlDelayTime().toString());
 
 		try {
 			OutputFormat outputFormat = OutputFormat.createPrettyPrint();// 设置XML文档输出格式
@@ -265,7 +265,7 @@ public class SettingUtil {
 			outputFormat.setIndent("	");// 以TAB方式实现缩进
 			outputFormat.setNewlines(true);// 设置是否换行
 			XMLWriter xmlWriter = new XMLWriter(new FileOutputStream(
-					intcosoftXmlFile), outputFormat);
+					deimosXmlFile), outputFormat);
 			xmlWriter.write(document);
 			xmlWriter.close();
 		} catch (Exception e) {

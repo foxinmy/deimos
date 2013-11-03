@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.image.ImageFilter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.octo.captcha.component.image.backgroundgenerator.BackgroundGenerator;
 import com.octo.captcha.component.image.backgroundgenerator.UniColorBackgroundGenerator;
 import com.octo.captcha.component.image.color.RandomListColorGenerator;
@@ -23,10 +26,12 @@ import com.octo.captcha.image.gimpy.GimpyFactory;
 
 public class CaptchaEngine extends ListImageCaptchaEngine {
 	
+	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	public static final String CAPTCHA_SERVICE_BEAN_NAME = "captchaService";// CaptchaService Bean名称
 	public static final String IMAGE_CAPTCHA_KEY = "imageCaptcha";// ImageCaptcha对象存放在Session中的key
 	public static final String CAPTCHA_PARAMETER_NAME = "j_captcha";// 验证码输入表单名称
-	public static final String CAPTCHA_IMAGE_URL = "/captcha.jpeg";// 验证码图片URL
+	public static final String CAPTCHA_IMAGE_URL = "/images/jcaptcha";// 验证码图片URL
 	private static final Integer MIN_WORD_LENGTH = 4;// 验证码最小长度
 	private static final Integer MAX_WORD_LENGTH = 4;// 验证码最大长度
 	private static final Integer IMAGE_HEIGHT = 40;// 验证码图片高度
@@ -35,7 +40,7 @@ public class CaptchaEngine extends ListImageCaptchaEngine {
 	private static final Integer MAX_FONT_SIZE = 23;// 验证码最大字体
 	private static final String RANDOM_WORD = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";// 随机字符
 	// private static final String IMAGE_PATH =
-	// "./net/intcosoft/captcha/";//随机背景图片路径
+	// "./com/foxinmy/deimos/captcha/";//随机背景图片路径
 
 	// 验证码随机字体
 	private static final Font[] RANDOM_FONT = new Font[] {

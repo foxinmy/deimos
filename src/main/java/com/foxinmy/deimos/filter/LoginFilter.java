@@ -1,7 +1,8 @@
 package com.foxinmy.deimos.filter;
 
 import java.io.IOException;
-import java.util.HashSet;
+import java.net.URLEncoder;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.servlet.Filter;
@@ -15,8 +16,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.AntPathMatcher;
 
+import com.foxinmy.deimos.bean.WebConstantBean;
 import com.foxinmy.deimos.model.User;
 
 /**
@@ -26,15 +30,13 @@ import com.foxinmy.deimos.model.User;
  */
 public class LoginFilter implements Filter {
 
-	protected FilterConfig filterConfig;
+	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	protected String urlStr;
+	protected String paramValue;
 
-	// 匹配不带*通配符的url
-	protected Set<String> normalUrls = new HashSet<String>();
+	protected String loginUrl;
 
-	// 匹配带*通配符的url
-	protected Set<String> patternUrls = new HashSet<String>();
+	protected Set<String> exceptPatterns = new LinkedHashSet<String>();
 
 	private AntPathMatcher matcher = new AntPathMatcher();
 
@@ -45,7 +47,10 @@ public class LoginFilter implements Filter {
 	 */
 	@Override
 	public void destroy() {
-
+		paramValue = null;
+		loginUrl = null;
+		exceptPatterns.clear();
+		matcher = null;
 	}
 
 	/*
@@ -55,44 +60,36 @@ public class LoginFilter implements Filter {
 	 * javax.servlet.ServletResponse, javax.servlet.FilterChain)
 	 */
 	@Override
-	public void doFilter(ServletRequest request, ServletResponse response,
-			FilterChain chain) throws IOException, ServletException {
-		HttpServletRequest r = ((HttpServletRequest) request);
-		HttpSession session = r.getSession();
-		String base = r.getContextPath();
-		String url = r.getRequestURI();
-		boolean exclude = false;
+	public void doFilter(ServletRequest servletRequest,
+			ServletResponse servletResponse, FilterChain chain)
+			throws IOException, ServletException {
+		HttpServletRequest request = ((HttpServletRequest) servletRequest);
+		String url = request.getServletPath();
+		String base = request.getContextPath();
+		boolean flag = false;
+
 		if (url.replace(base, "").equals("/")) {
-			exclude = true;
+			flag = true;
 		} else {
-			if (normalUrls.contains(url)) {
-				exclude = true;
-			} else {
-				for (String patternUrl : patternUrls) {
-					if (StringUtils.isBlank(patternUrl))
-						continue;
-					if (matcher.match(patternUrl, url)) {
-						exclude = true;
-						break;
-					}
+			for (String patternUrl : exceptPatterns) {
+				if (StringUtils.isBlank(patternUrl))
+					continue;
+				if (matcher.match(patternUrl, url)) {
+					flag = true;
+					break;
 				}
 			}
 		}
-		if (exclude) {
-			chain.doFilter(request, response);
+		if (flag) {
+			chain.doFilter(servletRequest, servletResponse);
 		} else {
-			Object obj = session
-					.getAttribute(User.UESR_ID_SESSION_NAME);
+			HttpSession session = request.getSession();
+			HttpServletResponse response = (HttpServletResponse) servletResponse;
+			Object obj = session.getAttribute(User.UESR_ID_SESSION_NAME);
 			if (obj == null) {
-				if (url.startsWith(r.getContextPath() + "/ajax")) {
-					((HttpServletResponse) response)
-							.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-				} else {
-					((HttpServletResponse) response).sendRedirect(base
-							+ "/login.action");
-				}
+				response.sendRedirect(String.format("%1$s%2$s?%3$s=%4$s", base,loginUrl,WebConstantBean.RETURN_URL_KEY,URLEncoder.encode(request.getRequestURL().toString(),"UTF-8")));
 			} else {
-				chain.doFilter(request, response);
+				chain.doFilter(servletRequest, servletResponse);
 			}
 		}
 	}
@@ -104,17 +101,11 @@ public class LoginFilter implements Filter {
 	 */
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		urlStr = filterConfig.getInitParameter("URL_EXCEPT");
-		String[] urlExcept = urlStr.split(",");
-		String base = filterConfig.getServletContext().getContextPath();
-		for (int i = 0; i < urlExcept.length; i++) {
-			if (!urlExcept[i].contains("*")) {
-				normalUrls.add(base + urlExcept[i]);
-			} else {
-				patternUrls.add(base + urlExcept[i]);
-			}
-
+		paramValue = filterConfig.getInitParameter("URL_EXCEPT");
+		loginUrl = filterConfig.getInitParameter("LOGIN_URL");
+		String[] exceptUrls = paramValue.split(",");
+		for (String url : exceptUrls) {
+			exceptPatterns.add(url);
 		}
 	}
-
 }

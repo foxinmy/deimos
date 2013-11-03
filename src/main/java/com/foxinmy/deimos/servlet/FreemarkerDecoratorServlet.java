@@ -6,7 +6,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.foxinmy.jycore.util.StringUtil;
+import org.apache.commons.lang.StringUtils;
+
 import com.opensymphony.module.sitemesh.HTMLPage;
 import com.opensymphony.module.sitemesh.RequestConstants;
 
@@ -36,7 +37,7 @@ public class FreemarkerDecoratorServlet extends
 		SimpleHash hash = (SimpleHash) templateModel;
 		HTMLPage htmlPage = (HTMLPage) request
 				.getAttribute(RequestConstants.PAGE);
-		if (StringUtil.isBlank(htmlPage.getTitle()))
+		if (StringUtils.isBlank(htmlPage.getTitle()))
 			hash.remove(DECORATOR_TITLE_MAP_NAME);
 		return result;
 	}

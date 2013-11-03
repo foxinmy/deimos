@@ -2,61 +2,52 @@ package com.foxinmy.deimos.model;
 
 import java.util.List;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * 单词
+ * 
  * @author liubin
- *
+ * 
  */
 @Document
-public class Word {
-	
-	@Id
-	private String id;
-	
-	//单词
+public class Word extends BaseModel<String> {
+
+	private static final long serialVersionUID = 679686897360388726L;
+
+	// 单词
 	@Indexed
 	private String spell;
-	
-	//发音
+
+	// 发音
 	private List<String> prons;
-	
-	//单词解释
+
+	// 单词解释
 	private List<Explain> explains;
-	
-	//发音url
+
+	// 发音url
 	private String audio;
-	
-	//发音参数
+
+	// 发音参数
 	private String audioParam;
-	
-	//例句
+
+	// 例句
 	private List<Sentence> sentences;
-	
-	//是否是短语
+
+	// 是否是短语
 	private Boolean phrase = false;
-	
-	//单词是否有效
+
+	// 单词是否有效
 	private Boolean valid = false;
-	
-	//相近的词
+
+	// 相近的词
 	private List<String> similarWords;
-	
-	//教材
+
+	// 教材
 	@DBRef
 	private Textbook textbook;
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
 
 	public String getSpell() {
 		return spell;
@@ -137,19 +128,22 @@ public class Word {
 	public void setSimilarWords(List<String> similarWords) {
 		this.similarWords = similarWords;
 	}
-	
+
 	/**
 	 * 得到单词解释
+	 * 
 	 * @return
 	 */
 	public String getPrettyExplain() {
-		if(explains == null || explains.isEmpty()) return null;
+		if (explains == null || explains.isEmpty())
+			return null;
 		StringBuilder sb = new StringBuilder();
-		for(Explain e : explains) {
-			sb.append(e.getCharact()).append(". ").append(e.getExplain()).append("; ");
+		for (Explain e : explains) {
+			sb.append(e.getCharact()).append(". ").append(e.getExplain())
+					.append("; ");
 		}
-		sb.deleteCharAt(sb.length()-1);
-		sb.deleteCharAt(sb.length()-1);
+		sb.deleteCharAt(sb.length() - 1);
+		sb.deleteCharAt(sb.length() - 1);
 		return sb.toString();
 	}
 }

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deimos>
+	<description>deimos模板配置文件</description>
+	<page>
+		<userContent>
+			<description>用户内容(测试)</description>
+			<templatePath>user_content.ftl</templatePath>
+			<htmlPath>/html/user/{date}/{uuid}.html</htmlPath>
+		</userContent>
+	</page>
+	<mail>
+		<!-- 用户注册验证邮件 -->
+		<userVerify>
+			<description>新用户激活</description>
+			<subject>感谢注册deimos,请验证Email</subject>
+			<templatePath>user_verify.ftl</templatePath>
+		</userVerify>
+	</mail>
+</deimos>

@@ -5,7 +5,10 @@
 	</decorator>
 	<excludes>
 		<pattern>/ajax/*</pattern>
-		<pattern>/login.action</pattern>
-		<pattern>/register.action</pattern>
+		<pattern>/user/login</pattern>
+		<pattern>/login*</pattern>
+		<pattern>/register</pattern>
+		<pattern>/user/register</pattern>
+		<pattern>/reg</pattern>
 	</excludes>
 </decorators>

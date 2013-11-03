@@ -1,4 +1,4 @@
-﻿article, aside, details, figcaption, figure, 
+article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
 display: block;
 }
@@ -155,8 +155,8 @@ margin: 0 auto;
 	min-width: 950px;
 	padding: 0 12px 0 0;
 }
-#db-nav{
-	
+#global-nav a:active, #global-nav a:hover, #global-nav a:link, #global-nav a:visited {
+color: #d5d5d5;
 }
 #header, #container { margin-bottom:30px; }
 #header, #container, #footer { width:100%;overflow:hidden; }

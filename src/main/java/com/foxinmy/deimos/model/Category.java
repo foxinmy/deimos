@@ -1,24 +1,21 @@
 package com.foxinmy.deimos.model;
 
-import java.math.BigInteger;
-
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * 教材类别
+ * 
  * @author liubin
  */
 @Document
-public class Category {
-	
-	@Id
-	private BigInteger id;
+public class Category extends BaseModel<String> {
 
-	//类别名称 
+	private static final long serialVersionUID = -6570374022734207990L;
+
+	// 类别名称
 	private String name;
-	
-	//备注
+
+	// 备注
 	private String remark;
 
 	public String getName() {
@@ -27,14 +24,6 @@ public class Category {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public BigInteger getId() {
-		return id;
-	}
-
-	public void setId(BigInteger id) {
-		this.id = id;
 	}
 
 	public String getRemark() {

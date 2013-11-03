@@ -2,7 +2,7 @@
 
 ;
 (function($){
-	// Ä¬ÈÏÅäÖÃ
+	// é»˜è®¤é…ç½®
 	var settings = {
 		minChars : 1 ,
 		maxItems : 100 ,
@@ -28,7 +28,7 @@
 				warp_head = 'ul';
 			warp_head_html = warp_head_html.replace('{1}',warp_head); 
 			$this.after(warp_div_html+warp_head_html+"</div>");
-			//¼üÅÌÊÍ·ÅÊÂ¼ş
+			//é”®ç›˜é‡Šæ”¾äº‹ä»¶
 			$this.keyup(function(e){
 				if(e.keyCode==40 || e.keyCode==38){
 					return false;
@@ -42,7 +42,7 @@
 							"top":_oTop+_oHeight,
 							"display":"block"
 						});
-						var warp_item_html = "<"+config.subOp+" id='e_type'>ÇëÑ¡ÔñÓÊ¼şÀàĞÍ:</"+config.subOp+">";
+						var warp_item_html = "<"+config.subOp+" id='e_type'>è¯·é€‰æ‹©é‚®ä»¶ç±»å‹:</"+config.subOp+">";
 						warp_item_html += "<"+config.subOp+" class='on'>"+cur_value+"</"+config.subOp+">";
 						var _item = "<"+config.subOp+">{1}</"+config.subOp+">";
 						var _e = cur_value.indexOf('@');
@@ -64,36 +64,36 @@
 							}
 						}
 						warp_object.find(warp_head).html(warp_item_html);
-						//»ñÈ¡½¹µã
+						//è·å–ç„¦ç‚¹
 						$this.focus(function(e){
 							if(warp_object.is(':hidden'))
 								warp_object.show();
 						});
-						//ÏîÊó±êĞü¸¡
+						//é¡¹é¼ æ ‡æ‚¬æµ®
 						warp_object.find(config.subOp).hover(function(){
-							console.log('dd--Èë');
+							console.log('dd--å…¥');
 							if(this.id === 'e_type')
 								return;
 							var _that=$(this);
 							_that.addClass(config.hoverClass)					   
 						},function(){
-							console.log('dd--³ö');
+							console.log('dd--å‡º');
 							var _that=$(this);
 							_that.removeClass(config.hoverClass)			
 						});
 						warp_object.hover(function(){
-							console.log('div--Èë');
+							console.log('div--å…¥');
 						},function(){
-							console.log('div--³ö');
+							console.log('div--å‡º');
 						});
-						//ÏîÊó±êµã»÷
+						//é¡¹é¼ æ ‡ç‚¹å‡»
 						warp_object.find(config.subOp).click(function(){
 							if(this.id === 'e_type')
 								return;
 							var _that = $(this);
 							$this.val(_that.text());
 						});
-						//Êó±êµã»÷
+						//é¼ æ ‡ç‚¹å‡»
 						document.onclick = function(event){
 							var e = window.event || event;  
 							var k = e.keyCode || e.which;
@@ -109,7 +109,7 @@
 									window.event.cancelBubble=true
 							}
 						}
-						//¼üÅÌ´¥·¢
+						//é”®ç›˜è§¦å‘
 						document.onkeydown = function(evnet){
 							var e = window.event || event;  
 							var k = e.keyCode || e.which;
@@ -118,19 +118,19 @@
 							var cur_index = cur_item.index();
 							var _cur_index = cur_index;
 							switch(k){
-								case 40://ÏÂ¼ü
+								case 40://ä¸‹é”®
 									if(cur_index == item_lenght)
 										_cur_index = 1;
 									else
 										_cur_index += 1;
 									break;
-								case 38://ÉÏ¼ü
+								case 38://ä¸Šé”®
 									if(cur_index == 1)
 										_cur_index -= 1;
 									else
 										_cur_index = item_lenght;
 									break;
-								case 9://tab¼ü¹Ø±ÕÁªÏë¿ò
+								case 9://tabé”®å…³é—­è”æƒ³æ¡†
 								warp_object.hide();
 									break;
 								default:

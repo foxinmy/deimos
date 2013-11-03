@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deimos>
+	<description>deimos配置文件</description>
+	<setting>
+		<domain>http://localhost:8090/deimos/</domain>
+		<systemName>deimos</systemName>
+		<systemVersion>1.0.0</systemVersion>
+		<systemDescription>今天你背单词了吗</systemDescription>
+		<contextPath></contextPath>
+		<imageUploadPath>/upload/image/{date(yyyyMM)}</imageUploadPath>
+		<imageBrowsePath>/upload/image</imageBrowsePath>
+		<adminLoginUrl>/admin/index.jsp</adminLoginUrl>
+		<adminLoginProcessingUrl>/admin/login/check</adminLoginProcessingUrl>
+		<isShowPoweredInfo>true</isShowPoweredInfo>
+		<hotSearch>deimos</hotSearch>
+		<metaKeywords>deimos背单词</metaKeywords>
+		<metaDescription>今天你背单词了吗</metaDescription>
+		<address>xxx</address>
+		<phone>123456</phone>
+		<zipCode>518000</zipCode>
+		<email>foxinmy@gmail.com</email>
+		<certtext>湘ICP备10000000号</certtext>
+		<smtpFromMail>416846353@qq.com</smtpFromMail>
+		<smtpHost>smtp.qq.com</smtpHost>
+		<smtpPort>25</smtpPort>
+		<smtpUsername>jy.hu</smtpUsername>
+		<smtpPassword>12345678</smtpPassword>
+		<isGzipEnabled>false</isGzipEnabled>
+		<buildHtmlDelayTime>1</buildHtmlDelayTime>
+	</setting>
+	<logConfig>
+		<item operation="系统设置" actionClass="net.intcosoft.action.admin.SettingAction" actionMethod="update" />
+		
+		<item operation="添加导航" actionClass="net.intcosoft.action.admin.NavigationAction" actionMethod="save" />
+		<item operation="删除导航" actionClass="net.intcosoft.action.admin.NavigationAction" actionMethod="delete" />
+		<item operation="编辑导航" actionClass="net.intcosoft.action.admin.NavigationAction" actionMethod="update" />
+		
+		<item operation="添加角色" actionClass="net.intcosoft.action.admin.RoleAction" actionMethod="save" />
+		<item operation="删除角色" actionClass="net.intcosoft.action.admin.RoleAction" actionMethod="delete" />
+		<item operation="编辑角色" actionClass="net.intcosoft.action.admin.RoleAction" actionMethod="update" />
+		
+		<item operation="添加管理员" actionClass="net.intcosoft.action.admin.AdminAction" actionMethod="save" />
+		<item operation="删除管理员" actionClass="net.intcosoft.action.admin.AdminAction" actionMethod="delete" />
+		<item operation="编辑管理员" actionClass="net.intcosoft.action.admin.AdminAction" actionMethod="update" />
+		
+		<item operation="添加会员" actionClass="net.intcosoft.action.admin.MemberAction" actionMethod="save" />
+		<item operation="删除会员" actionClass="net.intcosoft.action.admin.MemberAction" actionMethod="delete" />
+		<item operation="编辑会员" actionClass="net.intcosoft.action.admin.MemberAction" actionMethod="update" />
+
+	</logConfig>
+</deimos>

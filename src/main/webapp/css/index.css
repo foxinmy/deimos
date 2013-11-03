@@ -1,0 +1,13 @@
+@CHARSET "UTF-8";
+.info-nav{
+	position: relative;
+	float: right;
+	margin-right: 5px;
+	line-height: 28px;
+}
+#global-nav .link-a{
+	display: inline-block;
+	zoom: 1;
+	padding: 0 12px;
+	height: 28px;
+}

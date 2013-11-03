@@ -4,6 +4,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>${title!"欢迎来到deimos"}</title>
 	<link rel="stylesheet" href="${base}/css/base.css" type="text/css" media="screen"/>
+	<link rel="stylesheet" href="${base}/css/index.css" type="text/css" media="screen"/>
 	<link rel="icon" href="${base}/images/favicon.ico" type="image/x-icon" />
 	<script type="text/javascript" src="${base}/js/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript" src="${base}/js/base.js"></script>
@@ -12,11 +13,25 @@
 <body>
 	<#if (loginId)??>
 		<div id="global-nav">
-		
+			<div class="info-nav link-a">
+				<a href="${base}/user/logout">退出</a>
+			</div>
+			<div class="info-nav link-a">
+				<a href="${base}/user/weibo">发微博</a>
+			</div>
+			<div id="user-nav" class="info-nav link-a">
+				<a href="${base}/user/index"></a>
+			</div>
 		</div>
+		<script type="text/javascript">
+			$('#user-nav a').text(getCookie('loginUsername'));
+    	</script>
 	</#if>
 	<div class="wrapper">
-		<#include "header.dec">
+		<#if !(loginId)??>
+			<#include "header.dec">
+		</#if>
+		<!-- 中部  -->
 		<div id="container">
 			${body}
 		</div>

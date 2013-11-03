@@ -9,6 +9,7 @@
 	<link rel="stylesheet" href="${base}/js/fancybox/jquery.fancybox-1.3.4.css" type="text/css" media="screen"/>
 	<script type="text/javascript" src="${base}/js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
 	<link rel="stylesheet" href="${base}/css/login.css" type="text/css" media="screen" />
+	<script type="text/javascript" src="${base}/js/login.js"></script>
 </head>
 <body>
 	<div class="wrapper">
@@ -16,40 +17,27 @@
 			deimos
 		</div>
 		<div id="login-wrapper">
-			<form method="post" action="${base}/user/login.action" name="login" id="loginForm">
+			<form method="post" action="${base}/user/login" name="login" id="loginForm">
+				<input name="reurl" type="hidden" value="${reurl!}">
 				<h1>登录</h1>
-				<fieldset class="error_msg" id="r_error_msg">${loginMsg!}</fieldset>
+				<fieldset class="error_msg" id="r_error_msg">${errorMsg!}</fieldset>
 				<span id="loginMsg"></span>
 				<fieldset id="inputs">
-					<input id="email" name="email" type="email" placeholder="邮箱" autofocus required> 
-					<input id="password" name="password" type="password" placeholder="密码" required>
+					<input id="email" name="email" type="email" placeholder="邮箱" maxlength="50" autofocus required> 
+					<input id="password" name="password" type="password" maxlength="16" placeholder="密码" required>
 				</fieldset>
 				<fieldset id="checks" class="hidden">
 					<span>验证码</span>
 					<input id="checkcode" type="text" maxlength="4"/>
-					<img id="" src="${base}/images/blank_login.gif">
+					<img src="${base}/images/blank_login.gif">
 				</fieldset>
 				<input type="checkbox" id="remeberme" />记住我
 				<fieldset id="actions">
-					<input type="submit" id="submit" value="登录"> <a href="">忘记密码?</a><a href="${base}/register.action" class="fancybox">注册</a>
+					<input type="submit" id="submit" value="登录"> <a href="">忘记密码?</a><a href="${base}/reg" class="fancybox">注册</a>
 				</fieldset>
 			</form>
 		</div>
 		<#include "inc/footer.dec">
 	</div>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$(".fancybox").fancybox({
-				type:"ajax",
-				helpers : {
-					overlay : {
-						css : {
-							'background-color' : '#eee'	
-						}
-					}
-				}
-			});
-		});
-	</script>
 </body>
 </html>

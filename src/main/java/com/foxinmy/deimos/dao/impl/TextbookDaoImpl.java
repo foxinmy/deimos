@@ -1,12 +1,11 @@
 package com.foxinmy.deimos.dao.impl;
 
-import com.foxinmy.deimos.dao.TextbookCustomDao;
+import org.springframework.stereotype.Repository;
 
-public class TextbookDaoImpl implements TextbookCustomDao {
+import com.foxinmy.deimos.dao.TextbookDao;
+import com.foxinmy.deimos.model.Textbook;
 
-	@Override
-	public void doSomething(String name) {
-		System.out.println("hello ," + name);
-	}
+@Repository
+public class TextbookDaoImpl extends BaseDaoImpl<Textbook, String> implements TextbookDao {
 
 }

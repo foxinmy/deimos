@@ -11,15 +11,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.foxinmy.deimos.util.SpringUtil;
 import com.octo.captcha.service.CaptchaService;
 import com.octo.captcha.service.CaptchaServiceException;
 
 public class CaptchaServlet extends HttpServlet {
 
-	/**
-	 * 
-	 */
+	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	private static final long serialVersionUID = -628993569044571160L;
 
 	@Override

@@ -1,0 +1,45 @@
+﻿
+
+
+.sselect{
+	position:absolute;
+	background:#fff;
+	border:1px solid #ccc;
+	-moz-box-shadow:-1px 1px 1px rgba(0,0,0,.2);
+	-webkit-box-shadow:0 2px 4px rgba(0,0,0,.2);
+	box-shadow:0 2px 4px rgba(0,0,0,.2);z-index:1001;
+	text-align:left;
+	padding:0;
+}
+
+.sselect dl,ul{
+	color:#555;
+	font-size:12px;
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+
+.sselect dt{
+	padding:5px 4px;
+}
+
+.sselect dd,li{
+	margin:0;
+	padding:5px 4px;
+	cursor:pointer;
+	height:15px;
+	line-height:15px;
+	list-style:none;
+}
+
+.sselect .on{
+	color:#000;
+    background:#e8f4fc;
+}
+.sselect_close{
+	position: absolute;
+	width: 14px;
+	height: 14px;
+	background: white url("../../images/input_del.gif") no-repeat;
+}

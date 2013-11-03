@@ -2,43 +2,34 @@ package com.foxinmy.deimos.model;
 
 import java.util.Date;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * 教材
+ * 
  * @author liubin
  */
 @Document
-public class Textbook{
-	
-	@Id
-	private String id;
+public class Textbook extends BaseModel<String> {
 
-	//教材名称
+	private static final long serialVersionUID = 723361294150876509L;
+
+	// 教材名称
 	private String name;
-	
-	//教材类别
+
+	// 教材类别
 	@DBRef
 	private Category category;
-	
-	//单词总数量
+
+	// 单词总数量
 	private long wordCount;
-	
-	//创建日期
+
+	// 创建日期
 	private Date createDate;
-	
-	//备注
+
+	// 备注
 	private String remark;
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
 
 	public String getName() {
 		return name;

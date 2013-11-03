@@ -27,7 +27,4 @@ public class PlatformMappingExceptionResolver extends SimpleMappingExceptionReso
 		}
 		return super.doResolveException(request, response, handler, ex);
 	}
-
-	
-	
 }

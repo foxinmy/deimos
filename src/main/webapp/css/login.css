@@ -24,7 +24,8 @@
 		3px 0 #fff, 0 4px 0 rgba(0, 0, 0, .2), 0 6px 0 #fff, 0 7px 0
 		rgba(0, 0, 0, .2);
 		position: relative;
-		left: 280px;
+		margin-right:auto;
+		margin-left:auto;
 		display:table;
 		top: 30px;
 		margin-bottom: 60px;
@@ -131,7 +132,6 @@
 #actions {
 	margin: 15px 0 0 0;
 }
-
 #submit {
 	background-color: #ffb94b;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#fddb6f),
@@ -248,7 +248,7 @@
 	background: #f1f1f1;
 	padding: 15px 15px 15px 10px;
 	margin: 0 0 10px 0;
-	width: 353px; /* 353 + 2 + 45 = 400 */
+	width: 325px; /* 353 + 2 + 45 = 400 */
 	border: 1px solid #ccc;
 	color:#8F5A0A;
 	font-size:20px;
@@ -259,6 +259,8 @@
 	-webkit-box-shadow: 0 1px 1px #ccc inset, 0 1px 0 #fff;
 	box-shadow: 0 1px 1px #ccc inset, 0 1px 0 #fff;
 }
+
+
 
 #r_username {
 	background-position: 5px -2px !important;
